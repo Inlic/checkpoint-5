@@ -5,6 +5,7 @@
         <div class="card-body">
           <h4 class="card-title">{{blogProp.title}}</h4>
           <p>{{blogProp.creatorEmail}}</p>
+          <button class="btn btn-danger" v-if="blogProp.creatorEmail == profile.email">DELETE</button>
         </div>
       </div>
     </router-link>
@@ -17,6 +18,11 @@ export default {
   props: ["blogProp"],
   data(){
     return {};
+  },
+  computed:{
+    profile(){
+      return this.$store.state.profile
+    }
   }
 }
 </script>
