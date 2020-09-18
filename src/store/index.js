@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     setActiveBlog(state, blog){
       state.activeblog = blog;
+    },
+    removeBlog(state, id){
+      state.blogs = state.blogs.filter(b => b.id != id)
     }
   },
   actions: {
@@ -53,6 +56,14 @@ export default new Vuex.Store({
       try {
         let res = await api.post("blogs", blog)
         commit("setBlogs", [...state.blogs, res.data])
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async deleteBlog({commit},blogId){
+      try {
+        await api.delete('blogs/'+blogId)
+        commit("removeBlog",blogId)
       } catch (error) {
         console.error(error)
       }
