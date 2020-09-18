@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     profile: {},
     blogs: [],
-    activeblog: {}
+    activeblog: {},
+    activecomments: []
   },
   mutations: {
     setProfile(state, profile) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     removeBlog(state, id){
       state.blogs = state.blogs.filter(b => b.id != id)
+    },
+    setComments(state, comments){
+      state.activecomments = comments;
     }
   },
   actions: {
@@ -64,6 +68,14 @@ export default new Vuex.Store({
       try {
         await api.delete('blogs/'+blogId)
         commit("removeBlog",blogId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getActiveBlogComments({commit},blogId){
+      try {
+        let res = await api.get('blogs/'+blogId+'/comments')
+        commit("setComments", res.data)
       } catch (error) {
         console.error(error)
       }
