@@ -1,5 +1,6 @@
 <template>
-  <li>{{commentProp.creatorEmail}} - {{commentProp.body}}<button v-if="commentProp.creatorEmail == profile.email" class="btn btn-danger">DELETE</button></li>
+  <li>{{commentProp.creatorEmail}} - {{commentProp.body}}<button v-if="commentProp.creatorEmail == profile.email" class="btn btn-danger" @click="deleteComment(commentProp._id)">DELETE</button>
+  </li>
 </template> 
 
 <script>
@@ -8,6 +9,11 @@ export default {
   props: ["commentProp"],
   data(){
     return {}
+  },
+  methods: {
+    deleteComment(commentId){
+      this.$store.dispatch("deleteComment",commentId)
+    }
   },
   computed:{
     profile(){

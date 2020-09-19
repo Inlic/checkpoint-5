@@ -27,6 +27,9 @@ export default new Vuex.Store({
     },
     setComments(state, comments){
       state.activecomments = comments;
+    },
+    removeComment(state, id){
+      state.activecomments = state.activecomments.filter(c => c.id != id)
     }
   },
   actions: {
@@ -85,6 +88,14 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
-    }
+    },
+    async deleteComment({commit},commentId){
+      try {
+        await api.delete('comments/'+commentId)
+        commit("removeComment",commentId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
   },
 });
