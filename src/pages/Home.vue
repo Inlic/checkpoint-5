@@ -2,8 +2,9 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col mt-3">
-        <h3>Create a Blog</h3>
-        <form class="form-inline" @submit.prevent="createBlog">
+        <h3 v-if="profile.email">Create a Blog</h3>
+        <h3 v-else>Choose a Blog</h3>
+        <form class="form-inline" @submit.prevent="createBlog" v-if="profile.email">
           <div class="form-group">
             <input
               type="text"
@@ -52,6 +53,9 @@ export default {
   computed: {
     blogs(){
       return this.$store.state.blogs;
+    },
+    profile(){
+      return this.$store.state.profile
     }
   },
   components: {

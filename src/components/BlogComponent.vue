@@ -1,13 +1,26 @@
 <template>
   <div class="post-component col-4">
       <div class="card text-dark">
-    <router-link :to="{name:'blog-details', params:{blogId: blogProp._id}}">
         <div class="card-body">
-          <h4 class="card-title">{{blogProp.title}}</h4>
+          <router-link :to="{name:'blog-details', params:{blogId: blogProp._id}}">
+          <h2 class="card-title">{{blogProp.title}}</h2>
+          </router-link>
+          <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle" v-if="isCreator"></i>
+          <form class="form-inline" @submit.prevent="editBlog" v-if="editToggle">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New Blog Title..."
+            aria-describedby="helpId"
+            v-model="blogData.title"
+          />
+          <button type="submit" class="btn btn-warning">Edit Blog Title</button>
+        </form>
           <p>{{blogProp.creatorEmail}}</p>
+          <div v-if="isCreator">
+          <button class="btn btn-danger"  @click="deleteBlog">DELETE</button>
+          </div>
         </div>
-    </router-link>
-          <button class="btn btn-danger" v-if="blogProp.creatorEmail == profile.email" @click="deleteBlog(blogProp._id)">DELETE</button>
       </div>
   </div>
 </template>
@@ -17,16 +30,24 @@ export default {
   name: "blog-component",
   props: ["blogProp"],
   data(){
-    return {};
+    return { blogData: {}, editToggle: false };
   },
   methods: {
-    deleteBlog(blogId){
-      this.$store.dispatch("deleteBlog",blogId)
+    deleteBlog(){
+      this.$store.dispatch("deleteBlog",this.blogProp._id)
+    },
+    editBlog(){
+      this.blogData.id = this.blogProp._id;
+      this.$store.dispatch("editBlog",this.blogData);
+      this.editToggle = false;
     }
   },
   computed:{
     profile(){
       return this.$store.state.profile
+    },
+    isCreator(){
+      return this.profile.email == this.blogProp.creatorEmail;
     }
   }
 }

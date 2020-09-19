@@ -2,10 +2,31 @@
   <div class="post-details container-fluid text-center">
     <div class="row">
       <div class="col-12">
-        <p>{{blog.title}}</p>
-        <p>Created By: {{blog.creatorEmail}}</p>
+        <h3>{{blog.title}}</h3>
+        <h6>Created By: {{blog.creatorEmail}}</h6>
         <p>{{blog.body}}</p>
-        <button class="btn btn-danger" v-if="blog.creatorEmail == profile.email" @click="deleteBlog(blog.id);$router.push({name: 'Home' });">DELETE</button>
+        <div v-if="isCreator">
+        <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
+          <form class="form-inline" @submit.prevent="editActiveBlog" v-if="editToggle">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="New Blog Title..."
+            aria-describedby="helpId"
+            v-model="blogData.title"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Blog Text..."
+            aria-describedby="helpId"
+            v-model="blogData.body"
+          />
+          <button type="submit" class="btn btn-warning">Edit Blog</button>
+        </form>
+        <button class="btn btn-danger"  @click="deleteBlog;$router.push({name: 'Home' });">DELETE</button>
+        </div>
+        <div v-if="profile.email">
         <form class="form-inline" @submit.prevent="createComment">
           <div class="form-group">
             <input
@@ -20,6 +41,8 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </form>
+        </div>
+        <h5>Comments Section</h5>
         <ul>
         <comment-component v-for="comment in comments" :key="comment.id" :commentProp="comment"/>
         </ul>
@@ -33,15 +56,20 @@ import commentComponent from "../components/CommentComponent";
 export default {
   name: "blog-details",
   data(){
-    return { blogData: {}, newComment: {}}
+    return { blogData: {}, newComment: {}, editToggle: false };
   },
   mounted(){
     this.$store.dispatch("getActiveBlog",this.$route.params.blogId);
     this.$store.dispatch("getActiveBlogComments", this.$route.params.blogId)
   },
   methods: {
-    deleteBlog(blogId){
-      this.$store.dispatch("deleteBlog",blogId)
+    deleteBlog(){
+      this.$store.dispatch("deleteBlog",this.blog.id)
+    },
+    editActiveBlog(){
+      this.blogData.id = this.blog.id
+      this.$store.dispatch("editActiveBlog",this.blogData);
+      this.editToggle = false;
     },
     createComment(){
       let payload = {
@@ -61,7 +89,11 @@ export default {
     },
     profile(){
       return this.$store.state.profile
+    },
+    isCreator(){
+      return this.profile.email == this.blog.creatorEmail
     }
+
   },
   components: {
     commentComponent
