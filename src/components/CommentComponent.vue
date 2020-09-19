@@ -1,25 +1,24 @@
 <template>
-  <li>This is a comment </li>
-</template>
+  <li>{{commentProp.creatorEmail}} - {{commentProp.body}}<button v-if="commentProp.creatorEmail == profile.email" class="btn btn-danger">DELETE</button></li>
+</template> 
 
 <script>
 export default {
   name: "comment-component",
-  // FIXME need to pass down blog id from parent, blog not defined here
+  props: ["commentProp"],
   data(){
     return {}
   },
-  mounted(){
-    this.$store.dispatch("getActiveBlogComments", this.blog.id)
-  },
-  computed: {
-    blog(){
-      return this.$store.state.activeblog
+  computed:{
+    profile(){
+      return this.$store.state.profile
     }
   }
 }
 </script>
 
 <style>
-
+ul{
+  list-style: none;
+}
 </style>

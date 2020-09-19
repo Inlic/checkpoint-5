@@ -41,7 +41,6 @@ export default new Vuex.Store({
     async getAllBlogs({commit}){
       try {
         let res = await api.get("blogs")
-        console.log(res)
         commit("setBlogs", res.data);
       } catch (error) {
         console.error(error);
@@ -50,7 +49,6 @@ export default new Vuex.Store({
     async getActiveBlog({commit}, blogId){
       try {
         let res = await api.get("blogs/"+blogId)
-        console.log(res)
         commit("setActiveBlog", res.data)
       } catch (error) {
         console.error(error)
@@ -76,6 +74,14 @@ export default new Vuex.Store({
       try {
         let res = await api.get('blogs/'+blogId+'/comments')
         commit("setComments", res.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async createComment({commit, state},comment){
+      try {
+        let res = await api.post('comments',comment)
+        commit("setComments", [...state.activecomments, res.data])        
       } catch (error) {
         console.error(error)
       }

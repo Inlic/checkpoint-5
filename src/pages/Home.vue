@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col mt-3">
         <h3>Create a Blog</h3>
-        <form class="form-inline" @submit="createBlog">
+        <form class="form-inline" @submit.prevent="createBlog">
           <div class="form-group">
             <input
               type="text"
