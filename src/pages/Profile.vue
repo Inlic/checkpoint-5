@@ -15,6 +15,10 @@ export default {
     }
   }
 };
+
+//FIXME user profile should grab all blogposts and comments
+//Same edit/delete functionality as other sections
+
 </script>
 
 <style scoped>

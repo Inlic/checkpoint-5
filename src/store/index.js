@@ -106,6 +106,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async editActiveComments({commit, state},comment){
+      try {
+        let res = await api.put('comments/'+comment.id, comment)
+        commit("setComments", [...state.activecomments.filter(c => c.id != comment.id), res.data])
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async deleteComment({commit},commentId){
       try {
         await api.delete('comments/'+commentId)
