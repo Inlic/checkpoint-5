@@ -1,6 +1,6 @@
 <template>
   <li class="col-3">
-    <div class="card">
+    <div class="card mt-3">
       {{myCommentProp.creatorEmail}} - {{myCommentProp.body}}
       <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
         <form class="form-inline" @submit.prevent="editComment" v-if="editToggle">

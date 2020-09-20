@@ -4,7 +4,10 @@
     <img class="rounded" :src="profile.picture" alt="" />
     <p>{{ profile.email }}</p>
     <div>
-      My Blogs
+      <h4>My Blogs</h4>
+      <div class="row mt-3">
+      <my-blogs-component v-for="blog in profileblogs" :key="blog.id" :myBlogProp="blog" />
+    </div>
     </div>
     <div>
       <h4>My Comments</h4>
@@ -24,13 +27,15 @@ export default {
     return {};
   },
   mounted(){
+    console.log(this.$auth.isAuthenticated)
+    if(!this.$auth.isAuthenticated){
+      this.$router.push({name: 'Home'})
+    } else{
       this.$store.dispatch("getProfileBlogs")
       this.$store.dispatch("getProfileComments")    
+    }
   },
   computed: {
-    blogs(){
-      return this.$store.state.blogs;
-    },
     profile() {
       return this.$store.state.profile;
     },
