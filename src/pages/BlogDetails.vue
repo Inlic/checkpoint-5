@@ -5,7 +5,7 @@
         <h3>{{blog.title}}</h3>
         <h6>Created By: {{blog.creatorEmail}}</h6>
         <p>{{blog.body}}</p>
-        <div v-if="isCreator">
+        <div v-if="isCreator" class="col-12">
         <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
           <form class="form-inline" @submit.prevent="editActiveBlog" v-if="editToggle">
           <input
@@ -26,7 +26,7 @@
         </form>
         <button class="btn btn-danger"  @click="deleteBlog;$router.push({name: 'Home' });">DELETE</button>
         </div>
-        <div v-if="profile.email">
+        <div v-if="profile.email" class="col-12">
         <form class="form-inline" @submit.prevent="createComment">
           <div class="form-group">
             <input
@@ -42,10 +42,12 @@
           </button>
         </form>
         </div>
-        <h5>Comments Section</h5>
-        <ul>
-        <comment-component v-for="comment in comments" :key="comment.id" :commentProp="comment"/>
-        </ul>
+        <div class="col-12 text-center">
+          <h5>Comments Section</h5>
+          <ul class="list-group">
+            <comment-component v-for="comment in comments" :key="comment.id" :commentProp="comment"/>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

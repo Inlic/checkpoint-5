@@ -1,7 +1,10 @@
 <template>
-  <li class="col-3">
+  <li class="post-component col-3">
     <div class="card mt-3">
-      {{myCommentProp.creatorEmail}} - {{myCommentProp.body}}
+      <div class="card-body">
+        <!-- <button class="btn btn-primary" @click="getCommentBlog">Test</button> -->
+        <!-- $router.push({name: 'blog-details', params:{blogId: myCommentProp.blog}}); -->
+      <h5 class="card-title mt-2">{{myCommentProp.creatorEmail}} - {{myCommentProp.body}}</h5>
       <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
         <form class="form-inline" @submit.prevent="editComment" v-if="editToggle">
           <input
@@ -13,7 +16,10 @@
           />
           <button type="submit" class="btn btn-warning">Edit Comment</button>
         </form>
-      <button class="btn btn-danger" @click="deleteComment">DELETE</button>
+        <div class="mt-3">
+          <button class="btn btn-danger" @click="deleteComment">DELETE</button>
+        </div>
+      </div>
     </div>
   </li>
 </template>
@@ -34,6 +40,12 @@ export default {
       this.myCommentData.blog = this.myCommentProp.blog
       this.$store.dispatch("editActiveComments",this.myCommentData);
       this.editToggle = false;
+    },
+    getCommentBlog(){
+      console.log("test")
+      this.myCommentData.blog = this.myCommentProp.blog
+      console.log(this.myCommentData.blog)
+      this.$store.dispatch("getActiveBlog",this.myCommentData.blog)
     }
   },
   computed:{

@@ -3,7 +3,7 @@
       <div class="card text-dark">
         <div class="card-body">
           <router-link :to="{name:'blog-details', params:{blogId: myBlogProp._id}}">
-          <h2 class="card-title">{{myBlogProp.title}}</h2>
+          <h2 class="card-title mt-2">{{myBlogProp.title}}</h2>
           </router-link>
           <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
           <form class="form-inline" @submit.prevent="editBlog" v-if="editToggle">
@@ -17,7 +17,7 @@
           <button type="submit" class="btn btn-warning">Edit Blog Title</button>
         </form>
           <p>{{myBlogProp.creatorEmail}}</p>
-          <div>
+          <div class="mt-3">
           <button class="btn btn-danger"  @click="deleteBlog">DELETE</button>
           </div>
         </div>
