@@ -41,12 +41,12 @@ export default {
       this.$store.dispatch("editActiveComments",this.myCommentData);
       this.editToggle = false;
     },
-    getCommentBlog(){
-      console.log("test")
-      this.myCommentData.blog = this.myCommentProp.blog
-      console.log(this.myCommentData.blog)
-      this.$store.dispatch("getActiveBlog",this.myCommentData.blog)
-    }
+    // getCommentBlog(){
+    //   console.log("test")
+    //   this.myCommentData.blog = this.myCommentProp.blog
+    //   console.log(this.myCommentData.blog)
+    //   this.$store.dispatch("getActiveBlog",this.myCommentData.blog)
+    // }
   },
   computed:{
     profile(){
