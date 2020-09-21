@@ -16,7 +16,7 @@
           />
           <button type="submit" class="btn btn-warning">Edit Blog Title</button>
         </form>
-          <p>{{myBlogProp.creatorEmail}}</p>
+          <p class="text-warning">{{myBlogProp.creatorEmail}}</p>
           <div class="mt-3">
           <button class="btn btn-danger"  @click="deleteBlog">DELETE</button>
           </div>

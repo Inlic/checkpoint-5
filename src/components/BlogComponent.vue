@@ -16,7 +16,7 @@
           />
           <button type="submit" class="btn btn-warning">Edit Blog Title</button>
         </form>
-          <p>{{blogProp.creatorEmail}}</p>
+          <p class="text-warning">{{blogProp.creatorEmail}}</p>
           <div v-if="isCreator">
           <button class="btn btn-danger"  @click="deleteBlog">DELETE</button>
           </div>

@@ -1,6 +1,6 @@
 <template>
   <li class="post-component col-12 border list-group-item">
-      <h5 class="card-title mt-2">{{commentProp.creatorEmail}} - {{commentProp.body}}</h5>
+      <h5 class="card-title mt-2 text-dark"><span class="text-warning">{{commentProp.creatorEmail}}</span> - {{commentProp.body}}</h5>
     <div class="card-body" v-if="isCreator">
       <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
         <form class="form-inline" @submit.prevent="editComment" v-if="editToggle">

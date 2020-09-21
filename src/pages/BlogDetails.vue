@@ -2,8 +2,8 @@
   <div class="post-details container-fluid text-center">
     <div class="row">
       <div class="col-12">
-        <h3>{{blog.title}}</h3>
-        <h6>Created By: {{blog.creatorEmail}}</h6>
+        <h3 class="text-primary">{{blog.title}}</h3>
+        <h6 class="text-warning">Created By: {{blog.creatorEmail}}</h6>
         <p>{{blog.body}}</p>
         <div v-if="isCreator" class="col-12">
         <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
@@ -43,7 +43,7 @@
         </form>
         </div>
         <div class="col-12 text-center">
-          <h5>Comments Section</h5>
+          <h3 class="text-primary">Comments Section</h3>
           <ul class="list-group">
             <comment-component v-for="comment in comments" :key="comment.id" :commentProp="comment"/>
           </ul>
@@ -80,6 +80,13 @@ export default {
         creatorEmail: this.profile.email
       }
       this.$store.dispatch("createComment", payload)
+    }
+  },
+  watch: {
+    '$route'() {
+      // TODO: react to navigation event.
+      // params cotains the current route parameters
+      console.log(this.$route.params);
     }
   },
   computed: {

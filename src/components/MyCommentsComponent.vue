@@ -2,9 +2,9 @@
   <li class="post-component col-3">
     <div class="card mt-3">
       <div class="card-body">
-        <!-- <button class="btn btn-primary" @click="getCommentBlog">Test</button> -->
+        <button class="btn btn-primary" @click="$router.push({name: 'blog-details', params:{blogId: myCommentProp.blog}})">Test</button>
         <!-- $router.push({name: 'blog-details', params:{blogId: myCommentProp.blog}}); -->
-      <h5 class="card-title mt-2">{{myCommentProp.creatorEmail}} - {{myCommentProp.body}}</h5>
+      <h5 class="card-title mt-2 text-dark"><span class="text-warning">{{myCommentProp.creatorEmail}}</span> - {{myCommentProp.body}}</h5>
       <i class="fa fa-pencil-alt" aria-hidden="true" @click="editToggle = !editToggle"></i>
         <form class="form-inline" @submit.prevent="editComment" v-if="editToggle">
           <input
