@@ -24,7 +24,10 @@
           />
           <button type="submit" class="btn btn-warning">Edit Blog</button>
         </form>
-        <button class="btn btn-danger"  @click="deleteBlog;$router.push({name: 'Home' });">DELETE</button>
+        </div>
+        <div class="col-12 mt-2" v-if="isCreator">
+        <button class="btn btn-danger"  @click="deleteBlog">DELETE</button>
+        <!-- $router.push({name: 'Home' }) -->
         </div>
         <div v-if="profile.email" class="col-12">
         <form class="form-inline" @submit.prevent="createComment">
@@ -60,13 +63,19 @@ export default {
   data(){
     return { blogData: {}, newComment: {}, editToggle: false };
   },
+  beforeRouteUpdate(to, from, next){
+    this.$store.dispatch("getActiveBlog",to.path.slice(1));
+    next();
+  },
   mounted(){
     this.$store.dispatch("getActiveBlog",this.$route.params.blogId);
     this.$store.dispatch("getActiveBlogComments", this.$route.params.blogId)
   },
   methods: {
     deleteBlog(){
-      this.$store.dispatch("deleteBlog",this.blog.id)
+      this.blogData.id = this.blog.id
+      this.$store.dispatch("deleteBlog",this.blogData.id)
+      this.$router.push({name: 'Home' })
     },
     editActiveBlog(){
       this.blogData.id = this.blog.id
@@ -80,16 +89,12 @@ export default {
         creatorEmail: this.profile.email
       }
       this.$store.dispatch("createComment", payload)
-    }
-  },
-  watch: {
-    '$route'() {
-      // TODO: react to navigation event.
-      // params cotains the current route parameters
-      console.log(this.$route.params);
-    }
+    },
   },
   computed: {
+    blogs(){
+      return this.$store.state.blogs
+    },
     blog() {
       return this.$store.state.activeblog
     },

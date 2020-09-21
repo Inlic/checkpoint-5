@@ -4,13 +4,13 @@
     <img class="rounded" :src="profile.picture" alt="" />
     <p>{{ profile.email }}</p>
     <div>
-      <h2>My Blogs</h2>
+      <h2 class="text-dark">My Blogs</h2>
       <div class="row mt-3">
       <my-blogs-component v-for="blog in profileblogs" :key="blog.id" :myBlogProp="blog" />
     </div>
     </div>
     <div>
-      <h2>My Comments</h2>
+      <h2 class="text-dark">My Comments</h2>
       <ul class="row mt-3">
       <my-comments-component v-for="comment in profilecomments" :key="comment.id" :myCommentProp="comment"/>
       </ul> 
